@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
 
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    body {
+      margin:0;
+    }
+
+    #photoButton {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      padding: 15px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+<button id="photoButton">
+Take Photo
+</button>
+
+<a-scene
+mindar-image="uiScanning:no"
+embedded
+color-space="sRGB"
+renderer="colorManagement:true">
+
+<a-camera
+position="0 0 0"
+look-controls="enabled:false">
+</a-camera>
+
+<a-entity id="fish"></a-entity>
+
+</a-scene>
+
+<script>
+
+const params =
+new URLSearchParams(window.location.search);
+
+const fish =
+params.get("fish") || "salmon";
+
+const models = {
+  salmon: "models/salmon.glb",
+  trout: "models/trout.glb",
+  cod: "models/cod.glb",
+  pike: "models/pike.glb"
+};
+
+document.querySelector("#fish")
+.setAttribute("gltf-model", models[fish]);
+
+document.querySelector("#fish")
+.setAttribute("position", "0 0 -2");
+
+document.querySelector("#fish")
+.setAttribute("scale", "0.5 0.5 0.5");
+
+</script>
+
+</body>
+</html>
